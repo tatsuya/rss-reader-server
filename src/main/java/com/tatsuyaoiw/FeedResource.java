@@ -1,8 +1,7 @@
 package com.tatsuyaoiw;
 
 import com.google.common.collect.ImmutableList;
-import lombok.Builder;
-import lombok.Value;
+import com.tatsuyaoiw.json.JsonFeed;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -23,13 +22,5 @@ public class FeedResource {
                                                         .description("World News")
                                                         .build());
         return Response.ok(feeds).build();
-    }
-
-    @Value
-    @Builder
-    private static class JsonFeed {
-
-        private final String title;
-        private final String description;
     }
 }

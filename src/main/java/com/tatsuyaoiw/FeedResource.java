@@ -4,7 +4,7 @@ import com.tatsuyaoiw.json.JsonEntry;
 import com.tatsuyaoiw.json.JsonFeed;
 import com.tatsuyaoiw.model.Entry;
 import com.tatsuyaoiw.model.Feed;
-import com.tatsuyaoiw.repository.FeedRepository;
+import com.tatsuyaoiw.service.FeedService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +23,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @Slf4j
 public class FeedResource {
 
-    private FeedRepository feedRepository;
+    private FeedService feedService;
 
     private static JsonFeed toJson(Feed input) {
         return JsonFeed.builder()
@@ -44,9 +44,9 @@ public class FeedResource {
 
     @GET
     public Response get() {
-        return Response.ok(feedRepository.list().stream()
-                                         .map(FeedResource::toJson)
-                                         .collect(toList()))
+        return Response.ok(feedService.list().stream()
+                                      .map(FeedResource::toJson)
+                                      .collect(toList()))
                        .build();
     }
 }

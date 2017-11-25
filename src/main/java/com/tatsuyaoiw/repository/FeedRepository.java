@@ -1,10 +1,10 @@
 package com.tatsuyaoiw.repository;
 
-import com.tatsuyaoiw.json.JsonFeed;
+import com.tatsuyaoiw.model.Feed;
 
 import java.util.List;
 
 public interface FeedRepository {
 
-    List<JsonFeed> list();
+    List<Feed> list();
 }

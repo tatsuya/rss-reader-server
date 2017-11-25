@@ -6,7 +6,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
-import com.tatsuyaoiw.json.JsonFeed;
+import com.tatsuyaoiw.model.Feed;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -39,11 +39,11 @@ public class RestFeedRepository implements FeedRepository {
         }
     }
 
-    public List<JsonFeed> list() {
+    public List<Feed> list() {
         SyndFeed feed = getFeed(DEFULT_FEED_URL);
-        return ImmutableList.of(JsonFeed.builder()
-                                        .title(feed.getTitle())
-                                        .description(feed.getDescription())
-                                        .build());
+        return ImmutableList.of(Feed.builder()
+                                    .title(feed.getTitle())
+                                    .description(feed.getDescription())
+                                    .build());
     }
 }

@@ -1,6 +1,7 @@
 package com.tatsuyaoiw;
 
 import com.tatsuyaoiw.json.JsonFeed;
+import com.tatsuyaoiw.model.Feed;
 import com.tatsuyaoiw.repository.FeedRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +11,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
+import static java.util.stream.Collectors.toList;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @AllArgsConstructor(onConstructor = @__(@Inject))
@@ -22,9 +23,18 @@ public class FeedResource {
 
     private FeedRepository feedRepository;
 
+    private static JsonFeed toJson(Feed input) {
+        return JsonFeed.builder()
+                       .title(input.getTitle())
+                       .description(input.getDescription())
+                       .build();
+    }
+
     @GET
     public Response get() {
-        List<JsonFeed> feeds = feedRepository.list();
-        return Response.ok(feeds).build();
+        return Response.ok(feedRepository.list().stream()
+                                         .map(FeedResource::toJson)
+                                         .collect(toList()))
+                       .build();
     }
 }

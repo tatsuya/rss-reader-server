@@ -3,13 +3,10 @@ package com.tatsuyaoiw.json;
 import lombok.Builder;
 import lombok.Value;
 
-import java.util.List;
-
 @Value
 @Builder
-public class JsonFeed {
+public class JsonEntry {
 
     private final String title;
     private final String description;
-    private final List<JsonEntry> entries;
 }

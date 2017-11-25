@@ -1,6 +1,8 @@
 package com.tatsuyaoiw;
 
+import com.tatsuyaoiw.json.JsonEntry;
 import com.tatsuyaoiw.json.JsonFeed;
+import com.tatsuyaoiw.model.Entry;
 import com.tatsuyaoiw.model.Feed;
 import com.tatsuyaoiw.repository.FeedRepository;
 import lombok.AllArgsConstructor;
@@ -27,7 +29,17 @@ public class FeedResource {
         return JsonFeed.builder()
                        .title(input.getTitle())
                        .description(input.getDescription())
+                       .entries(input.getEntries().stream()
+                                     .map(FeedResource::toJson)
+                                     .collect(toList()))
                        .build();
+    }
+
+    private static JsonEntry toJson(Entry input) {
+        return JsonEntry.builder()
+                        .title(input.getTitle())
+                        .description(input.getDescription())
+                        .build();
     }
 
     @GET

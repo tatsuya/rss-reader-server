@@ -1,1 +1,1 @@
-web: java -cp target/classes:target/dependency/* com.tatsuyaoiw.heroku.Main
+web: java -cp target/classes:target/dependency/* com.tatsuyaoiw.Main

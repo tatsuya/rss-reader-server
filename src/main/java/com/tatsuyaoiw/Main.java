@@ -6,6 +6,8 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.servlet.ServletContainer;
 
+import static org.glassfish.jersey.servlet.ServletProperties.JAXRS_APPLICATION_CLASS;
+
 @Slf4j
 public class Main {
 
@@ -25,8 +27,7 @@ public class Main {
         server.setHandler(context);
 
         ServletHolder servletHolder = context.addServlet(ServletContainer.class, "/*");
-        servletHolder.setInitOrder(1);
-        servletHolder.setInitParameter("jersey.config.server.provider.packages", "com.tatsuyaoiw");
+        servletHolder.setInitParameter(JAXRS_APPLICATION_CLASS, JerseyApplication.class.getCanonicalName());
 
         try {
             server.start();

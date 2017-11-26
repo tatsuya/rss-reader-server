@@ -1,7 +1,8 @@
 package com.tatsuyaoiw.repository;
 
-import com.google.common.collect.ImmutableList;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
@@ -18,14 +19,19 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.lang.String.format;
+import static java.util.stream.Collectors.toList;
 
 @Singleton
 public class RestFeedRepository implements FeedRepository {
 
-    private static final String DEFULT_FEED_URL = "http://www.wsj.com/xml/rss/3_7085.xml";
+    private final List<String> urls;
+
+    @Inject
+    public RestFeedRepository(@Named("feedUrls") List<String> urls) {
+        this.urls = urls;
+    }
 
     private static SyndFeed getFeed(String url) {
         try (CloseableHttpClient client = HttpClients.createMinimal()) {
@@ -55,12 +61,16 @@ public class RestFeedRepository implements FeedRepository {
                    .description(input.getDescription())
                    .entries(input.getEntries().stream()
                                  .map(RestFeedRepository::map)
-                                 .collect(Collectors.toList()))
+                                 .collect(toList()))
 
                    .build();
     }
 
+    @Override
     public List<Feed> list() {
-        return ImmutableList.of(map(getFeed(DEFULT_FEED_URL)));
+        return urls.stream()
+                   .map(RestFeedRepository::getFeed)
+                   .map(RestFeedRepository::map)
+                   .collect(toList());
     }
 }

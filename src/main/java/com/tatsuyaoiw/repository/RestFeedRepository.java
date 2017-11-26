@@ -1,6 +1,5 @@
 package com.tatsuyaoiw.repository;
 
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
@@ -9,8 +8,6 @@ import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import com.tatsuyaoiw.model.Entry;
 import com.tatsuyaoiw.model.Feed;
-import com.tatsuyaoiw.model.Subscription;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -20,21 +17,16 @@ import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 
-@AllArgsConstructor(onConstructor = @__(@Inject))
 @Singleton
 @Slf4j
 public class RestFeedRepository implements FeedRepository {
 
-    private final SubscriptionRepository subscriptionRepository;
-
-    private static SyndFeed getFeed(Subscription subscription) {
-        log.info("Getting feed for {}", subscription);
-        String url = subscription.getUrl();
+    private static SyndFeed getFeed(String url) {
+        log.info("Getting feed for {}", url);
         try (CloseableHttpClient client = HttpClients.createMinimal()) {
             HttpUriRequest request = new HttpGet(url);
             try (CloseableHttpResponse response = client.execute(request);
@@ -68,11 +60,7 @@ public class RestFeedRepository implements FeedRepository {
     }
 
     @Override
-    public List<Feed> list() {
-        List<Subscription> subscriptions = subscriptionRepository.list();
-        return subscriptions.stream()
-                            .map(RestFeedRepository::getFeed)
-                            .map(RestFeedRepository::map)
-                            .collect(toList());
+    public Feed get(String url) {
+        return map(getFeed(url));
     }
 }

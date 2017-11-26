@@ -1,4 +1,4 @@
-package com.tatsuyaoiw;
+package com.tatsuyaoiw.resource;
 
 import com.tatsuyaoiw.json.JsonEntry;
 import com.tatsuyaoiw.json.JsonFeed;

@@ -1,12 +1,16 @@
 # rss-reader
 
+RSS reader application backend service API, built with Java 8, JAX-RS (Jersey), Jersey, Google Guice and PostgreSQL.
+
 ## Prerequisite
 
 - Java 8
 - Maven 3
-- Heroku (Optional)
+- PostgreSQL
 
 ## Deploying on Heroku
+
+The application is primarily made for deploying on Heroku. Note that [Heroku Postgres](https://devcenter.heroku.com/articles/heroku-postgresql) add-on needs to be added before deployment.
 
 ```
 heroku login

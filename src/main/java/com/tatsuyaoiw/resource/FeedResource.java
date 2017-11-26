@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -20,6 +21,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @AllArgsConstructor(onConstructor = @__(@Inject))
 @Path("feeds")
 @Produces(APPLICATION_JSON)
+@Singleton
 @Slf4j
 public class FeedResource {
 

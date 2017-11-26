@@ -37,3 +37,31 @@ java -cp "target/classes:target/dependency/*" "com.tatsuyaoiw.Main"
 ```
 
 This is how Jetty is started on Heroku and the command is defined in `Procfile`, the configuration file for Heroku.
+
+## API
+
+### GET `/feeds`
+
+List feeds.
+
+### GET `/subscriptions`
+
+List subscriptions.
+
+### POST `/subscriptions`
+
+Subscribe feed.
+
+Request:
+
+```json
+{
+  "url": "http://www.wsj.com/xml/rss/3_7085.xml"
+}
+```
+
+Response:
+
+```
+201 Created
+```

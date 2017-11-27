@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static java.lang.String.format;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
@@ -58,6 +59,24 @@ public class SqlSubscriptionRepository implements SubscriptionRepository {
         }
         log.info("Subscriptions: {}", subscriptions);
         return subscriptions;
+    }
+
+    @Override
+    public Optional<Subscription> get(Integer id) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT id, url FROM subscriptions WHERE id = ?")) {
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return Optional.of(Subscription.builder()
+                                               .id(rs.getInt("id"))
+                                               .url(rs.getString("url"))
+                                               .build());
+            }
+            return Optional.empty();
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to query database", e);
+        }
     }
 
     @Override

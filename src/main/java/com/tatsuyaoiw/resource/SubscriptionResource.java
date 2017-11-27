@@ -47,6 +47,15 @@ public class SubscriptionResource {
                        .build();
     }
 
+    @GET
+    @Path("{id}")
+    public Response get(@PathParam("id") Integer id) {
+        return repository.get(id)
+                         .map(Response::ok)
+                         .orElse(Response.status(404))
+                         .build();
+    }
+
     @POST
     public Response subscribe(@Context UriInfo uriInfo, JsonSubscribeRequest request) {
         Subscription subscription = repository.add(request.getUrl());

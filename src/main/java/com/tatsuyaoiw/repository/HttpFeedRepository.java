@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 
+import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toList;
 
 @Singleton
@@ -46,7 +47,7 @@ public class HttpFeedRepository implements FeedRepository {
         return Entry.builder()
                     .title(input.getTitle())
                     .link(input.getLink())
-                    .description(input.getDescription().getValue())
+                    .description(nonNull(input.getDescription()) ? input.getDescription().getValue() : null)
                     .build();
     }
 

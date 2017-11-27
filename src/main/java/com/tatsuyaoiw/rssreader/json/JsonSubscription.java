@@ -1,4 +1,4 @@
-package com.tatsuyaoiw.json;
+package com.tatsuyaoiw.rssreader.json;
 
 import lombok.Builder;
 import lombok.Value;

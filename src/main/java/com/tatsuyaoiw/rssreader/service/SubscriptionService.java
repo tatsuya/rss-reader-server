@@ -1,6 +1,6 @@
-package com.tatsuyaoiw.service;
+package com.tatsuyaoiw.rssreader.service;
 
-import com.tatsuyaoiw.model.Subscription;
+import com.tatsuyaoiw.rssreader.model.Subscription;
 
 import java.util.List;
 import java.util.Optional;

@@ -104,7 +104,7 @@ Rebuild artifact:
 
 ```
 mvn -DskipTests clean install
-java -cp "target/classes:target/dependency/*" "com.tatsuyaoiw.Main"
+java -cp "target/classes:target/dependency/*" "com.tatsuyaoiw.rssreader.Main"
 ```
 
 This is how Jetty is started on Heroku and the command is defined in `Procfile`.

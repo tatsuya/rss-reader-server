@@ -1,4 +1,4 @@
-package com.tatsuyaoiw;
+package com.tatsuyaoiw.rssreader;
 
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.server.Server;

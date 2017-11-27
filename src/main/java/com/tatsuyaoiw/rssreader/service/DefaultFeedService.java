@@ -1,8 +1,8 @@
-package com.tatsuyaoiw.service;
+package com.tatsuyaoiw.rssreader.service;
 
-import com.tatsuyaoiw.model.Entry;
-import com.tatsuyaoiw.model.Feed;
-import com.tatsuyaoiw.repository.FeedRepository;
+import com.tatsuyaoiw.rssreader.model.Entry;
+import com.tatsuyaoiw.rssreader.model.Feed;
+import com.tatsuyaoiw.rssreader.repository.FeedRepository;
 import lombok.AllArgsConstructor;
 
 import javax.inject.Inject;

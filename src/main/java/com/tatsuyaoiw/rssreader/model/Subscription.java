@@ -1,4 +1,4 @@
-package com.tatsuyaoiw.model;
+package com.tatsuyaoiw.rssreader.model;
 
 import lombok.Builder;
 import lombok.Value;

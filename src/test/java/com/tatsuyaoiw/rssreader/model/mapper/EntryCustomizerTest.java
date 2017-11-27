@@ -1,6 +1,6 @@
-package com.tatsuyaoiw.model.mapper;
+package com.tatsuyaoiw.rssreader.model.mapper;
 
-import com.tatsuyaoiw.model.Entry;
+import com.tatsuyaoiw.rssreader.model.Entry;
 import org.junit.Before;
 import org.junit.Test;
 

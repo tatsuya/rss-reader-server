@@ -1,9 +1,9 @@
-package com.tatsuyaoiw.service;
+package com.tatsuyaoiw.rssreader.service;
 
 import com.google.inject.Singleton;
-import com.tatsuyaoiw.model.Feed;
-import com.tatsuyaoiw.model.Subscription;
-import com.tatsuyaoiw.repository.SubscriptionRepository;
+import com.tatsuyaoiw.rssreader.model.Feed;
+import com.tatsuyaoiw.rssreader.model.Subscription;
+import com.tatsuyaoiw.rssreader.repository.SubscriptionRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

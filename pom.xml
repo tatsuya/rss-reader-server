@@ -148,7 +148,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.tatsuyaoiw.Main</mainClass>
+                            <mainClass>com.tatsuyaoiw.rssreader.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

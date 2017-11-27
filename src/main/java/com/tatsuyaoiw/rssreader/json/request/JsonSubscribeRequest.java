@@ -1,4 +1,4 @@
-package com.tatsuyaoiw.json.request;
+package com.tatsuyaoiw.rssreader.json.request;
 
 import lombok.Data;
 

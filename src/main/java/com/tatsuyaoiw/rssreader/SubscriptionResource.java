@@ -1,13 +1,13 @@
-package com.tatsuyaoiw.resource;
+package com.tatsuyaoiw.rssreader.resource;
 
-import com.tatsuyaoiw.json.JsonEntry;
-import com.tatsuyaoiw.json.JsonFeed;
-import com.tatsuyaoiw.json.JsonSubscription;
-import com.tatsuyaoiw.json.request.JsonSubscribeRequest;
-import com.tatsuyaoiw.model.Entry;
-import com.tatsuyaoiw.model.Feed;
-import com.tatsuyaoiw.model.Subscription;
-import com.tatsuyaoiw.service.SubscriptionService;
+import com.tatsuyaoiw.rssreader.json.JsonEntry;
+import com.tatsuyaoiw.rssreader.json.JsonFeed;
+import com.tatsuyaoiw.rssreader.json.JsonSubscription;
+import com.tatsuyaoiw.rssreader.json.request.JsonSubscribeRequest;
+import com.tatsuyaoiw.rssreader.model.Entry;
+import com.tatsuyaoiw.rssreader.model.Feed;
+import com.tatsuyaoiw.rssreader.model.Subscription;
+import com.tatsuyaoiw.rssreader.service.SubscriptionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

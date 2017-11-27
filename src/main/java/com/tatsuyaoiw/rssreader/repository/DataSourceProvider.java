@@ -1,4 +1,4 @@
-package com.tatsuyaoiw.repository;
+package com.tatsuyaoiw.rssreader.repository;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;

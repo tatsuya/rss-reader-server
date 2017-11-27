@@ -1,8 +1,8 @@
-package com.tatsuyaoiw.model.mapper;
+package com.tatsuyaoiw.rssreader.model.mapper;
 
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import com.tatsuyaoiw.model.Entry;
+import com.tatsuyaoiw.rssreader.model.Entry;
 
 import javax.inject.Inject;
 import java.util.function.Function;

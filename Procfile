@@ -1,1 +1,1 @@
-web: java -cp target/classes:target/dependency/* com.tatsuyaoiw.Main
+web: java -cp target/classes:target/dependency/* com.tatsuyaoiw.rssreader.Main

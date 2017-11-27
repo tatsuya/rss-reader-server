@@ -1,4 +1,4 @@
-package com.tatsuyaoiw.repository;
+package com.tatsuyaoiw.rssreader.repository;
 
 import com.google.inject.Singleton;
 import com.rometools.rome.feed.synd.SyndEntry;
@@ -6,8 +6,8 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
-import com.tatsuyaoiw.model.Entry;
-import com.tatsuyaoiw.model.Feed;
+import com.tatsuyaoiw.rssreader.model.Entry;
+import com.tatsuyaoiw.rssreader.model.Feed;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;

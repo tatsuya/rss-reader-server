@@ -23,7 +23,7 @@ import static java.util.stream.Collectors.toList;
 
 @Singleton
 @Slf4j
-public class RestFeedRepository implements FeedRepository {
+public class HttpFeedRepository implements FeedRepository {
 
     private static SyndFeed getFeed(String url) {
         log.info("Getting feed for {}", url);
@@ -53,7 +53,7 @@ public class RestFeedRepository implements FeedRepository {
                    .title(input.getTitle())
                    .description(input.getDescription())
                    .entries(input.getEntries().stream()
-                                 .map(RestFeedRepository::map)
+                                 .map(HttpFeedRepository::map)
                                  .collect(toList()))
 
                    .build();

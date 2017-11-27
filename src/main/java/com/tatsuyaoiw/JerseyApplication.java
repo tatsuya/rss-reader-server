@@ -7,7 +7,7 @@ import com.tatsuyaoiw.model.Entry;
 import com.tatsuyaoiw.model.mapper.EntryCustomizer;
 import com.tatsuyaoiw.repository.DataSourceProvider;
 import com.tatsuyaoiw.repository.FeedRepository;
-import com.tatsuyaoiw.repository.RestFeedRepository;
+import com.tatsuyaoiw.repository.HttpFeedRepository;
 import com.tatsuyaoiw.repository.SqlSubscriptionRepository;
 import com.tatsuyaoiw.repository.SubscriptionRepository;
 import com.tatsuyaoiw.service.DefaultFeedService;
@@ -64,7 +64,7 @@ public class JerseyApplication extends ResourceConfig {
             bind(DataSource.class).toProvider(DataSourceProvider.class).asEagerSingleton();
 
             bind(SubscriptionRepository.class).to(SqlSubscriptionRepository.class);
-            bind(FeedRepository.class).to(RestFeedRepository.class);
+            bind(FeedRepository.class).to(HttpFeedRepository.class);
         }
     }
 }

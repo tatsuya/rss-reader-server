@@ -17,28 +17,29 @@ import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 
-import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 
 @Singleton
 @Slf4j
 public class HttpFeedRepository implements FeedRepository {
 
-    private static SyndFeed getFeed(String url) {
+    private static Optional<SyndFeed> getFeed(String url) {
         log.info("Getting feed for {}", url);
         try (CloseableHttpClient client = HttpClients.createMinimal()) {
             HttpUriRequest request = new HttpGet(url);
             try (CloseableHttpResponse response = client.execute(request);
                  InputStream stream = response.getEntity().getContent()) {
                 SyndFeedInput input = new SyndFeedInput();
-                return input.build(new XmlReader(stream));
+                return Optional.of(input.build(new XmlReader(stream)));
             } catch (FeedException e) {
-                throw new IllegalArgumentException(format("Failed to parse feed content from url %s", url), e);
+                log.warn("Failed to parse feed content from url {}", url);
             }
         } catch (IOException e) {
-            throw new IllegalArgumentException(format("Failed to get feed content from url %s", url), e);
+            log.warn("Failed to get feed content from url {}", url);
         }
+        return Optional.empty();
     }
 
     private static Entry map(SyndEntry input) {
@@ -60,7 +61,7 @@ public class HttpFeedRepository implements FeedRepository {
     }
 
     @Override
-    public Feed get(String url) {
-        return map(getFeed(url));
+    public Optional<Feed> get(String url) {
+        return getFeed(url).map(HttpFeedRepository::map);
     }
 }

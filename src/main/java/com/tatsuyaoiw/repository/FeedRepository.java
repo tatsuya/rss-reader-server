@@ -2,7 +2,9 @@ package com.tatsuyaoiw.repository;
 
 import com.tatsuyaoiw.model.Feed;
 
+import java.util.Optional;
+
 public interface FeedRepository {
 
-    Feed get(String url);
+    Optional<Feed> get(String url);
 }

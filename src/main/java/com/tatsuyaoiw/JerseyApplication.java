@@ -11,7 +11,9 @@ import com.tatsuyaoiw.repository.HttpFeedRepository;
 import com.tatsuyaoiw.repository.SqlSubscriptionRepository;
 import com.tatsuyaoiw.repository.SubscriptionRepository;
 import com.tatsuyaoiw.service.DefaultFeedService;
+import com.tatsuyaoiw.service.DefaultSubscriptionService;
 import com.tatsuyaoiw.service.FeedService;
+import com.tatsuyaoiw.service.SubscriptionService;
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.jvnet.hk2.guice.bridge.api.GuiceBridge;
@@ -49,6 +51,7 @@ public class JerseyApplication extends ResourceConfig {
             }).to(EntryCustomizer.class);
 
             bind(FeedService.class).to(DefaultFeedService.class);
+            bind(SubscriptionService.class).to(DefaultSubscriptionService.class);
         }
     }
 

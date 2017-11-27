@@ -2,9 +2,9 @@ package com.tatsuyaoiw.service;
 
 import com.tatsuyaoiw.model.Feed;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface FeedService {
 
-    List<Feed> list();
+    Optional<Feed> get(String url);
 }

@@ -9,4 +9,5 @@ public class JsonSubscription {
 
     private final Integer id;
     private final String url;
+    private final JsonFeed feed;
 }

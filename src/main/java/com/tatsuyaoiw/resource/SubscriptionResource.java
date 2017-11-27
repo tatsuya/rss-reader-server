@@ -1,9 +1,13 @@
 package com.tatsuyaoiw.resource;
 
+import com.tatsuyaoiw.json.JsonEntry;
+import com.tatsuyaoiw.json.JsonFeed;
 import com.tatsuyaoiw.json.JsonSubscription;
 import com.tatsuyaoiw.json.request.JsonSubscribeRequest;
+import com.tatsuyaoiw.model.Entry;
+import com.tatsuyaoiw.model.Feed;
 import com.tatsuyaoiw.model.Subscription;
-import com.tatsuyaoiw.repository.SubscriptionRepository;
+import com.tatsuyaoiw.service.SubscriptionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,46 +34,69 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @Slf4j
 public class SubscriptionResource {
 
-    private SubscriptionRepository repository;
+    private SubscriptionService subscriptionService;
 
     private static JsonSubscription toJson(Subscription input) {
         return JsonSubscription.builder()
                                .id(input.getId())
                                .url(input.getUrl())
+                               .feed(toJson(input.getFeed()))
                                .build();
+    }
+
+    private static JsonFeed toJson(Feed input) {
+        return JsonFeed.builder()
+                       .title(input.getTitle())
+                       .description(input.getDescription())
+                       .entries(input.getEntries().stream()
+                                     .map(SubscriptionResource::toJson)
+                                     .collect(toList()))
+                       .build();
+    }
+
+    private static JsonEntry toJson(Entry input) {
+        return JsonEntry.builder()
+                        .title(input.getTitle())
+                        .description(input.getDescription())
+                        .build();
+    }
+
+    private static URI toUri(UriInfo uriInfo, Integer id) {
+        return uriInfo.getBaseUriBuilder()
+                      .path("subscriptions")
+                      .path(id.toString())
+                      .build();
     }
 
     @GET
     public Response list() {
-        return Response.ok(repository.list().stream()
-                                     .map(SubscriptionResource::toJson)
-                                     .collect(toList()))
+        return Response.ok(subscriptionService.list().stream()
+                                              .map(SubscriptionResource::toJson)
+                                              .collect(toList()))
                        .build();
     }
 
     @GET
     @Path("{id}")
     public Response get(@PathParam("id") Integer id) {
-        return repository.get(id)
-                         .map(Response::ok)
-                         .orElse(Response.status(404))
-                         .build();
+        return subscriptionService.get(id)
+                                  .map(Response::ok)
+                                  .orElse(Response.status(404))
+                                  .build();
     }
 
     @POST
     public Response subscribe(@Context UriInfo uriInfo, JsonSubscribeRequest request) {
-        Subscription subscription = repository.add(request.getUrl());
-        URI resourceUri = uriInfo.getBaseUriBuilder()
-                                 .path("subscriptions")
-                                 .path(subscription.getId().toString())
-                                 .build();
-        return Response.created(resourceUri).build();
+        return subscriptionService.add(request.getUrl())
+                                  .map(it -> Response.created(toUri(uriInfo, it.getId())))
+                                  .orElse(Response.status(400))
+                                  .build();
     }
 
     @DELETE
     @Path("{id}")
     public Response unsubscribe(@PathParam("id") Integer id) {
-        repository.delete(id);
+        subscriptionService.delete(id);
         return Response.noContent().build();
     }
 }

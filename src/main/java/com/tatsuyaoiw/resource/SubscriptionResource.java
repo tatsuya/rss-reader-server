@@ -9,9 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -53,5 +55,12 @@ public class SubscriptionResource {
                                  .path(subscription.getId().toString())
                                  .build();
         return Response.created(resourceUri).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response unsubscribe(@PathParam("id") Integer id) {
+        repository.delete(id);
+        return Response.noContent().build();
     }
 }

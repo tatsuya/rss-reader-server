@@ -83,4 +83,20 @@ public class SqlSubscriptionRepository implements SubscriptionRepository {
             throw new IllegalStateException(format("Failed to add subscription %s", url), e);
         }
     }
+
+    @Override
+    public void delete(Integer id) {
+        log.info("Deleting subscription {}", id);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM subscriptions WHERE id = (?)")) {
+            statement.setInt(1, id);
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows != 1) {
+                throw new IllegalStateException(format("Failed to delete subscription %s, no rows affected", id));
+            }
+            log.info("Deleted subscription {}", id);
+        } catch (Exception e) {
+            throw new IllegalStateException(format("Failed to delete subscription %s", id), e);
+        }
+    }
 }

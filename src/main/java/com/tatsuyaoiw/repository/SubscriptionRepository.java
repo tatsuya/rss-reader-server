@@ -9,4 +9,6 @@ public interface SubscriptionRepository {
     List<Subscription> list();
 
     Subscription add(String url);
+
+    void delete(Integer id);
 }

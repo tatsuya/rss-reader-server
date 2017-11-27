@@ -8,5 +8,6 @@ import lombok.Value;
 public class JsonEntry {
 
     private final String title;
+    private final String link;
     private final String description;
 }

@@ -45,6 +45,7 @@ public class HttpFeedRepository implements FeedRepository {
     private static Entry map(SyndEntry input) {
         return Entry.builder()
                     .title(input.getTitle())
+                    .link(input.getLink())
                     .description(input.getDescription().getValue())
                     .build();
     }

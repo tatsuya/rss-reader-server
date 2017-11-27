@@ -8,6 +8,7 @@ import lombok.Value;
 public class Entry {
 
     private final String title;
+    private final String link;
     private final String description;
 }
 

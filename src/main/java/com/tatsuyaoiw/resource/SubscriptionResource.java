@@ -57,6 +57,7 @@ public class SubscriptionResource {
     private static JsonEntry toJson(Entry input) {
         return JsonEntry.builder()
                         .title(input.getTitle())
+                        .link(input.getLink())
                         .description(input.getDescription())
                         .build();
     }

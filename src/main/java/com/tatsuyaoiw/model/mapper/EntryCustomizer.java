@@ -26,6 +26,7 @@ public class EntryCustomizer implements Function<Entry, Entry> {
     public Entry apply(Entry input) {
         return Entry.builder()
                     .title(substring(input.getTitle(), 0, maxTitleLength))
+                    .link(input.getLink())
                     .description(substring(input.getDescription(), 0, maxDescriptionLength))
                     .build();
     }

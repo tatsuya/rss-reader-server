@@ -8,10 +8,6 @@ RSS reader service API, built with Java 8, JAX-RS (Jersey), Google Guice and Pos
 - Maven 3
 - PostgreSQL
 
-## Class diagram
-
-Please see: `rss-reader-class-diagram.png` placed in this project directory.
-
 ## API
 
 ### GET `/subscriptions`

@@ -1,22 +1,22 @@
 package com.tatsuyaoiw.rssreader.model.mapper;
 
 import com.tatsuyaoiw.rssreader.model.Entry;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EntryCustomizerTest {
 
     private EntryCustomizer customizer;
 
-    @Before
-    public void before() throws Exception {
+    @BeforeEach
+    void beforeEach() {
         customizer = new EntryCustomizer(20, 140);
     }
 
     @Test
-    public void test_long() throws Exception {
+    void test_long() {
         Entry input = Entry.builder()
                            .title("At Least 235 Killed in Egypt Mosque Attack")
                            .description("At least 235 people were killed and 109 injured when gunmen armed with explosives attacked a Sufi-linked mosque in Egypt’s restive Sinai Peninsula, in the deadliest assault in the country’s modern history.")
@@ -28,7 +28,7 @@ public class EntryCustomizerTest {
     }
 
     @Test
-    public void test_short() throws Exception {
+    void test_short() {
         String shortTitle = "Short Title";
         String shortDescription = "Short description";
         Entry input = Entry.builder()

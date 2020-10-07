@@ -115,3 +115,8 @@ heroku create
 git push heroku master
 heroku open
 ```
+
+## TODO
+
+- Add a Dockerfile to run PostgreSQL locally
+- Write unit tests for repositories

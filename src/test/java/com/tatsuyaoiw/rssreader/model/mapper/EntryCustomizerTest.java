@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class EntryCustomizerTest {
 
@@ -13,6 +14,30 @@ public class EntryCustomizerTest {
     @BeforeEach
     void beforeEach() {
         customizer = new EntryCustomizer(20, 140);
+    }
+
+    @Test
+    void test_titleIsNull() {
+        Entry input = Entry.builder()
+                           .title(null)
+                           .description("Description")
+                           .build();
+
+        Entry actual = customizer.apply(input);
+        assertNull(actual.getTitle());
+        assertEquals("Description", actual.getDescription());
+    }
+
+    @Test
+    void test_descriptionIsNull() {
+        Entry input = Entry.builder()
+                           .title("Title")
+                           .description(null)
+                           .build();
+
+        Entry actual = customizer.apply(input);
+        assertEquals("Title", actual.getTitle());
+        assertNull(actual.getDescription());
     }
 
     @Test

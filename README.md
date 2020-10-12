@@ -1,4 +1,4 @@
-# rss-reader
+# rss-reader-server
 
 RSS reader service API, built with Java 8, Jetty, JAX-RS (Jersey), Google Guice and MySQL.
 

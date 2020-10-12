@@ -2,14 +2,14 @@ package com.tatsuyaoiw.rssreader.model;
 
 import lombok.Builder;
 import lombok.Value;
-import lombok.experimental.Wither;
+import lombok.With;
 
 @Value
 @Builder
 public class Subscription {
 
-    private final Integer id;
-    private final String url;
-    @Wither
-    private final Feed feed;
+    Integer id;
+    String url;
+    @With
+    Feed feed;
 }

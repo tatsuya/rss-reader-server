@@ -40,8 +40,13 @@ public class DefaultSubscriptionService implements SubscriptionService {
 
     @Override
     public Optional<Subscription> add(String url) {
-        return feedRepository.get(url)
-                             .map(it -> subscriptionRepository.add(url));
+        Optional<Feed> feed = feedRepository.get(url);
+        if (!feed.isPresent()) {
+            // Possibly better to throw an error with status 400
+            return Optional.empty();
+        }
+        Subscription subscription = subscriptionRepository.add(url);
+        return Optional.of(subscription.withFeed(feed.get()));
     }
 
     @Override

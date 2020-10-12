@@ -2,7 +2,7 @@ package com.tatsuyaoiw.rssreader.model;
 
 import lombok.Builder;
 import lombok.Value;
-import lombok.experimental.Wither;
+import lombok.With;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ public class Feed {
 
     public static final Feed EMPTY = Feed.builder().build();
 
-    private final String title;
-    private final String description;
-    @Wither
-    private final List<Entry> entries;
+    String title;
+    String description;
+    @With
+    List<Entry> entries;
 
     public List<Entry> getEntries() {
         return entries == null ? emptyList() : entries;

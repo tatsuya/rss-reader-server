@@ -7,8 +7,8 @@ import lombok.Value;
 @Builder
 public class Entry {
 
-    private final String title;
-    private final String link;
-    private final String description;
+    String title;
+    String link;
+    String description;
 }
 

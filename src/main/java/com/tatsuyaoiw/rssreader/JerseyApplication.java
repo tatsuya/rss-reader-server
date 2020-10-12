@@ -10,9 +10,7 @@ import com.tatsuyaoiw.rssreader.repository.FeedRepository;
 import com.tatsuyaoiw.rssreader.repository.HttpFeedRepository;
 import com.tatsuyaoiw.rssreader.repository.SqlSubscriptionRepository;
 import com.tatsuyaoiw.rssreader.repository.SubscriptionRepository;
-import com.tatsuyaoiw.rssreader.service.DefaultFeedService;
 import com.tatsuyaoiw.rssreader.service.DefaultSubscriptionService;
-import com.tatsuyaoiw.rssreader.service.FeedService;
 import com.tatsuyaoiw.rssreader.service.SubscriptionService;
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -52,7 +50,6 @@ public class JerseyApplication extends ResourceConfig {
             bind(new TypeLiteral<Function<Entry, Entry>>() {
             }).to(EntryCustomizer.class);
 
-            bind(FeedService.class).to(DefaultFeedService.class);
             bind(SubscriptionService.class).to(DefaultSubscriptionService.class);
         }
     }
@@ -60,12 +57,14 @@ public class JerseyApplication extends ResourceConfig {
     private class DataAccessModule extends AbstractModule {
 
         private static final String JDBC_DATABASE_URL_DEFAULT = "jdbc:mysql://localhost:3306/rss-reader";
+        private static final String JDBC_DATABASE_USERNAME_DEFAULT = "rss-reader";
+        private static final String JDBC_DATABASE_PASSWORD_DEFAULT = "rss-reader";
 
         @Override
         protected void configure() {
             String dataSourceUrl = JDBC_DATABASE_URL_DEFAULT;
-            String dataSourceUsername = "rss-reader";
-            String dataSourcePassword = "rss-reader";
+            String dataSourceUsername = JDBC_DATABASE_USERNAME_DEFAULT;
+            String dataSourcePassword = JDBC_DATABASE_PASSWORD_DEFAULT;
 
             // https://elements.heroku.com/addons/jawsdb
             // We first make sure if this application is running on Heroku with JawsDB (MySQL) database.

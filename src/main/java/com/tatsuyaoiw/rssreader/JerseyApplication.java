@@ -21,6 +21,8 @@ import org.jvnet.hk2.guice.bridge.api.GuiceIntoHK2Bridge;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.function.Function;
 
 import static com.google.inject.name.Names.named;
@@ -61,9 +63,34 @@ public class JerseyApplication extends ResourceConfig {
 
         @Override
         protected void configure() {
+            String dataSourceUrl = JDBC_DATABASE_URL_DEFAULT;
+            String username = "rss-reader";
+            String password = "rss-reader";
+
+            String jawsdbUrl = System.getenv("JAWSDB_URL");
+            if (isNotBlank(jawsdbUrl)) {
+                URL url;
+                try {
+                    url = new URL(jawsdbUrl);
+                } catch (MalformedURLException e) {
+                    throw new IllegalStateException("Invalid JAWSDB_URL");
+                }
+                dataSourceUrl = String.format("jdbc:mysql://%s%s", url.getAuthority(), url.getPath());
+                String userInfo = url.getUserInfo();
+                String[] userInfoArray = userInfo.split(":");
+                username = userInfoArray[0];
+                password = userInfoArray[1];
+            }
+
             String jdbcDatabaseUrl = System.getenv("JDBC_DATABASE_URL");
-            String dataSourceUrl = isNotBlank(jdbcDatabaseUrl) ? jdbcDatabaseUrl : JDBC_DATABASE_URL_DEFAULT;
+            if (isNotBlank(jdbcDatabaseUrl)) {
+                dataSourceUrl = jdbcDatabaseUrl;
+            }
+
             bind(String.class).annotatedWith(named("dataSourceUrl")).toInstance(dataSourceUrl);
+            bind(String.class).annotatedWith(named("username")).toInstance(username);
+            bind(String.class).annotatedWith(named("password")).toInstance(password);
+
             bind(DataSource.class).toProvider(DataSourceProvider.class).asEagerSingleton();
 
             bind(SubscriptionRepository.class).to(SqlSubscriptionRepository.class);

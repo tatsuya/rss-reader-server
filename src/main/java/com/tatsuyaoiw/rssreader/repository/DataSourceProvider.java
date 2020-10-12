@@ -15,10 +15,14 @@ import javax.sql.DataSource;
 public class DataSourceProvider implements Provider<DataSource> {
 
     private final String url;
+    private final String username;
+    private final String password;
 
     @Inject
-    public DataSourceProvider(@Named("dataSourceUrl") String url) {
+    public DataSourceProvider(@Named("dataSourceUrl") String url, @Named("username") String username, @Named("password") String password) {
         this.url = url;
+        this.username = username;
+        this.password = password;
     }
 
     @Override
@@ -26,8 +30,8 @@ public class DataSourceProvider implements Provider<DataSource> {
         log.info("Initializing datasource {}", url);
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(url);
-        config.setUsername("rss-reader");
-        config.setPassword("rss-reader");
+        config.setUsername(username);
+        config.setPassword(password);
         return new HikariDataSource(config);
     }
 }

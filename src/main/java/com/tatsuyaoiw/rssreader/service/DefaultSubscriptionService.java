@@ -33,6 +33,7 @@ public class DefaultSubscriptionService implements SubscriptionService {
                                      .collect(toList());
     }
 
+    @Override
     public Optional<Subscription> get(Integer id) {
         return subscriptionRepository.get(id)
                                      .map(this::withFeed);
@@ -41,7 +42,7 @@ public class DefaultSubscriptionService implements SubscriptionService {
     @Override
     public Optional<Subscription> add(String url) {
         if (!feedService.get(url).isPresent()) {
-            log.warn("Unable to get feed with url %s", url);
+            log.warn("Unable to get feed with url {}", url);
             return Optional.empty();
         }
         return Optional.of(subscriptionRepository.add(url));

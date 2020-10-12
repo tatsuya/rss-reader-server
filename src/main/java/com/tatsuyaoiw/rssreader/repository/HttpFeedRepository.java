@@ -26,6 +26,11 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 public class HttpFeedRepository implements FeedRepository {
 
+    @Override
+    public Optional<Feed> get(String url) {
+        return getFeed(url).map(HttpFeedRepository::map);
+    }
+
     private static Optional<SyndFeed> getFeed(String url) {
         log.info("Getting feed for {}", url);
         try (CloseableHttpClient client = HttpClients.createMinimal()) {
@@ -60,10 +65,5 @@ public class HttpFeedRepository implements FeedRepository {
                                  .collect(toList()))
 
                    .build();
-    }
-
-    @Override
-    public Optional<Feed> get(String url) {
-        return getFeed(url).map(HttpFeedRepository::map);
     }
 }

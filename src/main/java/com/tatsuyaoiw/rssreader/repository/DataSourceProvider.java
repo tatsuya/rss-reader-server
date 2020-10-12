@@ -19,7 +19,9 @@ public class DataSourceProvider implements Provider<DataSource> {
     private final String password;
 
     @Inject
-    public DataSourceProvider(@Named("dataSourceUrl") String url, @Named("username") String username, @Named("password") String password) {
+    public DataSourceProvider(@Named("dataSourceUrl") String url,
+                              @Named("username") String username,
+                              @Named("password") String password) {
         this.url = url;
         this.username = username;
         this.password = password;

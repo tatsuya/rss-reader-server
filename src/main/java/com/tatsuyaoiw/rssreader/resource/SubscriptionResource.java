@@ -36,6 +36,39 @@ public class SubscriptionResource {
 
     private SubscriptionService subscriptionService;
 
+    @GET
+    public Response list() {
+        return Response.ok(subscriptionService.list().stream()
+                                              .map(SubscriptionResource::toJson)
+                                              .collect(toList()))
+                       .build();
+    }
+
+    @GET
+    @Path("{id}")
+    public Response get(@PathParam("id") Integer id) {
+        return subscriptionService.get(id)
+                                  .map(Response::ok)
+                                  .orElse(Response.status(404))
+                                  .build();
+    }
+
+    @POST
+    public Response subscribe(@Context UriInfo uriInfo, JsonSubscribeRequest request) {
+        return subscriptionService.add(request.getUrl())
+                                  .map(it -> Response.created(toUri(uriInfo, it.getId())))
+                                  .orElse(Response.status(400))
+                                  .build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response unsubscribe(@PathParam("id") Integer id) {
+        subscriptionService.delete(id);
+        return Response.noContent().build();
+    }
+
+
     private static JsonSubscription toJson(Subscription input) {
         return JsonSubscription.builder()
                                .id(input.getId())
@@ -67,37 +100,5 @@ public class SubscriptionResource {
                       .path("subscriptions")
                       .path(id.toString())
                       .build();
-    }
-
-    @GET
-    public Response list() {
-        return Response.ok(subscriptionService.list().stream()
-                                              .map(SubscriptionResource::toJson)
-                                              .collect(toList()))
-                       .build();
-    }
-
-    @GET
-    @Path("{id}")
-    public Response get(@PathParam("id") Integer id) {
-        return subscriptionService.get(id)
-                                  .map(Response::ok)
-                                  .orElse(Response.status(404))
-                                  .build();
-    }
-
-    @POST
-    public Response subscribe(@Context UriInfo uriInfo, JsonSubscribeRequest request) {
-        return subscriptionService.add(request.getUrl())
-                                  .map(it -> Response.created(toUri(uriInfo, it.getId())))
-                                  .orElse(Response.status(400))
-                                  .build();
-    }
-
-    @DELETE
-    @Path("{id}")
-    public Response unsubscribe(@PathParam("id") Integer id) {
-        subscriptionService.delete(id);
-        return Response.noContent().build();
     }
 }

@@ -21,8 +21,8 @@ import org.jvnet.hk2.guice.bridge.api.GuiceIntoHK2Bridge;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.function.Function;
 
 import static com.google.inject.name.Names.named;
@@ -69,10 +69,10 @@ public class JerseyApplication extends ResourceConfig {
 
             String jawsdbUrl = System.getenv("JAWSDB_URL");
             if (isNotBlank(jawsdbUrl)) {
-                URL url;
+                URI url;
                 try {
-                    url = new URL(jawsdbUrl);
-                } catch (MalformedURLException e) {
+                    url = new URI(jawsdbUrl);
+                } catch (URISyntaxException e) {
                     throw new IllegalStateException(String.format("Invalid JAWSDB_URL: '%s'", jawsdbUrl));
                 }
                 dataSourceUrl = String.format("jdbc:mysql://%s%s", url.getAuthority(), url.getPath());

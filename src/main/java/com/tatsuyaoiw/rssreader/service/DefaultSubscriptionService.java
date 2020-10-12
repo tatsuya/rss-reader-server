@@ -21,11 +21,6 @@ public class DefaultSubscriptionService implements SubscriptionService {
     private final SubscriptionRepository subscriptionRepository;
     private final FeedService feedService;
 
-    private Subscription withFeed(Subscription subscription) {
-        Feed feed = feedService.get(subscription.getUrl()).orElse(Feed.EMPTY);
-        return subscription.withFeed(feed);
-    }
-
     @Override
     public List<Subscription> list() {
         return subscriptionRepository.list().stream()
@@ -41,15 +36,17 @@ public class DefaultSubscriptionService implements SubscriptionService {
 
     @Override
     public Optional<Subscription> add(String url) {
-        if (!feedService.get(url).isPresent()) {
-            log.warn("Unable to get feed with url {}", url);
-            return Optional.empty();
-        }
-        return Optional.of(subscriptionRepository.add(url));
+        return feedService.get(url)
+                          .map(it -> subscriptionRepository.add(url));
     }
 
     @Override
     public void delete(Integer id) {
         subscriptionRepository.delete(id);
+    }
+
+    private Subscription withFeed(Subscription subscription) {
+        Feed feed = feedService.get(subscription.getUrl()).orElse(Feed.EMPTY);
+        return subscription.withFeed(feed);
     }
 }

@@ -34,7 +34,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @Slf4j
 public class SubscriptionResource {
 
-    private SubscriptionService subscriptionService;
+    private final SubscriptionService subscriptionService;
 
     @GET
     public Response list() {

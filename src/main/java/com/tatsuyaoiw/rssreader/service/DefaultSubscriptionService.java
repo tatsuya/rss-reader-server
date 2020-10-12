@@ -18,8 +18,8 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 public class DefaultSubscriptionService implements SubscriptionService {
 
-    private SubscriptionRepository subscriptionRepository;
-    private FeedService feedService;
+    private final SubscriptionRepository subscriptionRepository;
+    private final FeedService feedService;
 
     private Subscription withFeed(Subscription subscription) {
         Feed feed = feedService.get(subscription.getUrl()).orElse(Feed.EMPTY);

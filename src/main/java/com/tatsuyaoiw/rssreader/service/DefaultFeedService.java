@@ -16,8 +16,8 @@ import static java.util.stream.Collectors.toList;
 @Singleton
 public class DefaultFeedService implements FeedService {
 
-    private FeedRepository feedRepository;
-    private Function<Entry, Entry> entryCustomizer;
+    private final FeedRepository feedRepository;
+    private final Function<Entry, Entry> entryCustomizer;
 
     @Override
     public Optional<Feed> get(String url) {

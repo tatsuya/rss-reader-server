@@ -20,8 +20,8 @@ public class DataSourceProvider implements Provider<DataSource> {
 
     @Inject
     public DataSourceProvider(@Named("dataSourceUrl") String url,
-                              @Named("username") String username,
-                              @Named("password") String password) {
+                              @Named("dataSourceUsername") String username,
+                              @Named("dataSourcePassword") String password) {
         this.url = url;
         this.username = username;
         this.password = password;

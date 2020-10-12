@@ -64,8 +64,8 @@ public class JerseyApplication extends ResourceConfig {
         @Override
         protected void configure() {
             String dataSourceUrl = JDBC_DATABASE_URL_DEFAULT;
-            String username = "rss-reader";
-            String password = "rss-reader";
+            String dataSourceUsername = "rss-reader";
+            String dataSourcePassword = "rss-reader";
 
             // https://elements.heroku.com/addons/jawsdb
             // We first make sure if this application is running on Heroku with JawsDB (MySQL) database.
@@ -80,8 +80,8 @@ public class JerseyApplication extends ResourceConfig {
                 dataSourceUrl = String.format("jdbc:mysql://%s%s", url.getAuthority(), url.getPath());
                 String userInfo = url.getUserInfo();
                 String[] userInfoArray = userInfo.split(":");
-                username = userInfoArray[0];
-                password = userInfoArray[1];
+                dataSourceUsername = userInfoArray[0];
+                dataSourcePassword = userInfoArray[1];
             }
 
             String jdbcDatabaseUrl = System.getenv("JDBC_DATABASE_URL");
@@ -90,8 +90,8 @@ public class JerseyApplication extends ResourceConfig {
             }
 
             bind(String.class).annotatedWith(named("dataSourceUrl")).toInstance(dataSourceUrl);
-            bind(String.class).annotatedWith(named("username")).toInstance(username);
-            bind(String.class).annotatedWith(named("password")).toInstance(password);
+            bind(String.class).annotatedWith(named("dataSourceUsername")).toInstance(dataSourceUsername);
+            bind(String.class).annotatedWith(named("dataSourcePassword")).toInstance(dataSourcePassword);
 
             bind(DataSource.class).toProvider(DataSourceProvider.class).asEagerSingleton();
 

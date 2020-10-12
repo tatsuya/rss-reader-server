@@ -107,7 +107,7 @@ This is how Jetty is started on Heroku and the command is defined in `Procfile`.
 
 ## Deploying on Heroku
 
-Note: A MySQL add-on such as [Heroku Postgres](https://elements.heroku.com/addons/cleardb) needs to be added before deployment.
+Note: With Heroku, this application requires the [JawsDB MySQL](https://elements.heroku.com/addons/jawsdb) add-on installed as the MySQL data source.
 
 ```
 heroku login

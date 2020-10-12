@@ -67,6 +67,8 @@ public class JerseyApplication extends ResourceConfig {
             String username = "rss-reader";
             String password = "rss-reader";
 
+            // https://elements.heroku.com/addons/jawsdb
+            // We first make sure if this application is running on Heroku with JawsDB (MySQL) database.
             String jawsdbUrl = System.getenv("JAWSDB_URL");
             if (isNotBlank(jawsdbUrl)) {
                 URI url;

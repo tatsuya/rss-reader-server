@@ -70,7 +70,7 @@ Response:
 
 ### POST `/subscriptions`
 
-Subscribe feed.
+Subscribe feed. Any RSS feed URL should work, for example, [these URLs](https://www.wsj.com/news/rss-news-and-feeds) are available in The Wall Street Journal.
 
 Request:
 
@@ -94,16 +94,24 @@ Unsubscribe feed.
 204 No Content
 ```
 
-## Running locally
+## Local development
 
-Rebuild artifact:
+### Running MySQL
+
+In this repository, we have a [Docker Compose](https://docs.docker.com/compose/) file (`docker-compose.yml`) to create and start MySQL service locally.
+
+```
+docker-compose up -d
+```
+
+### Build an artifact
 
 ```
 mvn -DskipTests clean install
 java -cp "target/classes:target/dependency/*" "com.tatsuyaoiw.rssreader.Main"
 ```
 
-This is how Jetty is started on Heroku and the command is defined in `Procfile`.
+This is how we start Jetty on Heroku. You can check the actual command in the `Procfile`.
 
 ## Deploying on Heroku
 
@@ -114,14 +122,6 @@ heroku login
 heroku create
 git push heroku master
 heroku open
-```
-
-## Local development
-
-In this repository, we have a [Docker Compose](https://docs.docker.com/compose/) file (`docker-compose.yml`) to create and start MySQL service locally.
-
-```
-docker-compose up -d
 ```
 
 ## TODO

@@ -73,7 +73,7 @@ public class JerseyApplication extends ResourceConfig {
                 try {
                     url = new URL(jawsdbUrl);
                 } catch (MalformedURLException e) {
-                    throw new IllegalStateException("Invalid JAWSDB_URL");
+                    throw new IllegalStateException(String.format("Invalid JAWSDB_URL: '%s'", jawsdbUrl));
                 }
                 dataSourceUrl = String.format("jdbc:mysql://%s%s", url.getAuthority(), url.getPath());
                 String userInfo = url.getUserInfo();

@@ -33,9 +33,9 @@ public class SqlSubscriptionRepository implements SubscriptionRepository {
     private void createTableIfNotExists() {
         try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS subscriptions (" +
-                    "id SERIAL PRIMARY KEY, " +
+                    "id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
                     "url VARCHAR(512), " +
-                    "created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()" +
+                    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                     ")");
         } catch (Exception e) {
             throw new IllegalStateException("Failed to create datasource", e);

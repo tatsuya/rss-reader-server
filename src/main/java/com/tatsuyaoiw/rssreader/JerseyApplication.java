@@ -57,7 +57,7 @@ public class JerseyApplication extends ResourceConfig {
 
     private class DataAccessModule extends AbstractModule {
 
-        private static final String JDBC_DATABASE_URL_DEFAULT = "jdbc:postgresql://localhost/postgres";
+        private static final String JDBC_DATABASE_URL_DEFAULT = "jdbc:mysql://localhost:3306/rss-reader";
 
         @Override
         protected void configure() {

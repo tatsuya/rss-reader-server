@@ -26,6 +26,8 @@ public class DataSourceProvider implements Provider<DataSource> {
         log.info("Initializing datasource {}", url);
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(url);
+        config.setUsername("rss-reader");
+        config.setPassword("rss-reader");
         return new HikariDataSource(config);
     }
 }

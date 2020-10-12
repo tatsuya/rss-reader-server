@@ -1,12 +1,12 @@
 # rss-reader
 
-RSS reader service API, built with Java 8, Jetty, JAX-RS (Jersey), Google Guice and PostgreSQL.
+RSS reader service API, built with Java 8, Jetty, JAX-RS (Jersey), Google Guice and MySQL.
 
 ## Prerequisite
 
 - Java 8
 - Maven 3
-- PostgreSQL
+- MySQL
 
 ## API
 
@@ -22,21 +22,21 @@ Response:
 
 ```json
 [
-  {
-    "id": 1,
-    "url": "http://www.wsj.com/xml/rss/3_7085.xml",
-    "feed": {
-      "title": "WSJ.com: World News",
-      "description": "World News",
-      "entries": [
-        {
-          "title": "Pakistan Stops Anti-",
-          "link": "https://www.wsj.com/articles/pakistan-stops-anti-protest-operation-after-deadly-clashes-1511690273?mod=fox_australian",
-          "description": "An operation to clear a protest by Islamist activists in the capital was on hold Sunday morning after at least seven people were killed and "
+    {
+        "id": 1,
+        "url": "https://feeds.a.dj.com/rss/RSSOpinion.xml",
+        "feed": {
+            "title": "RSSOpinion",
+            "description": "RSSOpinion",
+            "entries": [
+                {
+                    "title": "Trump's Misguided Sw",
+                    "link": "https://www.wsj.com/articles/trumps-misguided-swipe-at-bill-barr-11602449244",
+                    "description": "The AG isn’t helped by public badgering from the Oval Office."
+                }
+            ]
         }
-      ]
     }
-  }
 ]
 ```
 
@@ -52,19 +52,19 @@ Response:
 
 ```json
 {
-  "id": 1,
-  "url": "http://www.wsj.com/xml/rss/3_7085.xml",
-  "feed": {
-    "title": "WSJ.com: World News",
-    "description": "World News",
-    "entries": [
-      {
-        "title": "Pakistan Stops Anti-",
-        "link": "https://www.wsj.com/articles/pakistan-stops-anti-protest-operation-after-deadly-clashes-1511690273?mod=fox_australian",
-        "description": "An operation to clear a protest by Islamist activists in the capital was on hold Sunday morning after at least seven people were killed and "
-      }
-    ]
-  }
+    "id": 1,
+    "url": "https://feeds.a.dj.com/rss/RSSOpinion.xml",
+    "feed": {
+        "title": "RSSOpinion",
+        "description": "RSSOpinion",
+        "entries": [
+            {
+                "title": "Trump's Misguided Sw",
+                "link": "https://www.wsj.com/articles/trumps-misguided-swipe-at-bill-barr-11602449244",
+                "description": "The AG isn’t helped by public badgering from the Oval Office."
+            }
+        ]
+    }
 }
 ```
 
@@ -76,7 +76,7 @@ Request:
 
 ```json
 {
-  "url": "http://www.wsj.com/xml/rss/3_7085.xml"
+  "url": "https://feeds.a.dj.com/rss/RSSOpinion.xml"
 }
 ```
 
@@ -107,7 +107,7 @@ This is how Jetty is started on Heroku and the command is defined in `Procfile`.
 
 ## Deploying on Heroku
 
-Note: [Heroku Postgres](https://devcenter.heroku.com/articles/heroku-postgresql) add-on needs to be added before deployment.
+Note: A MySQL add-on such as [Heroku Postgres](https://elements.heroku.com/addons/cleardb) needs to be added before deployment.
 
 ```
 heroku login
@@ -116,7 +116,14 @@ git push heroku master
 heroku open
 ```
 
+## Local development
+
+In this repository, we have a [Docker Compose](https://docs.docker.com/compose/) file (`docker-compose.yml`) to create and start MySQL service locally.
+
+```
+docker-compose up -d
+```
+
 ## TODO
 
-- Add a Dockerfile to run PostgreSQL locally
 - Write unit tests for repositories

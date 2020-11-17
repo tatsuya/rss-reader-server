@@ -107,7 +107,7 @@ docker-compose up -d
 ### Build an artifact
 
 ```
-mvn -DskipTests clean install
+mvn package
 java -cp "target/classes:target/dependency/*" "com.tatsuyaoiw.rssreader.Main"
 ```
 

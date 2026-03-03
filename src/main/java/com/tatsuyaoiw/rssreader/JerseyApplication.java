@@ -10,6 +10,7 @@ import com.tatsuyaoiw.rssreader.repository.FeedRepository;
 import com.tatsuyaoiw.rssreader.repository.HttpFeedRepository;
 import com.tatsuyaoiw.rssreader.repository.SqlSubscriptionRepository;
 import com.tatsuyaoiw.rssreader.repository.SubscriptionRepository;
+import com.tatsuyaoiw.rssreader.resource.SubscriptionResource;
 import com.tatsuyaoiw.rssreader.service.DefaultSubscriptionService;
 import com.tatsuyaoiw.rssreader.service.SubscriptionService;
 import org.glassfish.hk2.api.ServiceLocator;
@@ -19,8 +20,6 @@ import org.jvnet.hk2.guice.bridge.api.GuiceIntoHK2Bridge;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.function.Function;
 
 import static com.google.inject.name.Names.named;
@@ -30,7 +29,7 @@ public class JerseyApplication extends ResourceConfig {
 
     @Inject
     public JerseyApplication(ServiceLocator serviceLocator) {
-        packages(JerseyApplication.class.getPackage().getName());
+        register(SubscriptionResource.class);
 
         // Guice HK2 bridge
         // See e.g. https://github.com/t-tang/jetty-jersey-HK2-Guice-boilerplate
@@ -56,32 +55,15 @@ public class JerseyApplication extends ResourceConfig {
 
     private class DataAccessModule extends AbstractModule {
 
-        private static final String JDBC_DATABASE_URL_DEFAULT = "jdbc:mysql://localhost:3306/rss-reader";
-        private static final String JDBC_DATABASE_USERNAME_DEFAULT = "rss-reader";
-        private static final String JDBC_DATABASE_PASSWORD_DEFAULT = "rss-reader";
+        private static final String JDBC_DATABASE_URL_DEFAULT = "jdbc:h2:./rss-reader;DB_CLOSE_DELAY=-1";
+        private static final String JDBC_DATABASE_USERNAME_DEFAULT = "sa";
+        private static final String JDBC_DATABASE_PASSWORD_DEFAULT = "";
 
         @Override
         protected void configure() {
             String dataSourceUrl = JDBC_DATABASE_URL_DEFAULT;
             String dataSourceUsername = JDBC_DATABASE_USERNAME_DEFAULT;
             String dataSourcePassword = JDBC_DATABASE_PASSWORD_DEFAULT;
-
-            // https://elements.heroku.com/addons/jawsdb
-            // We first make sure if this application is running on Heroku with JawsDB (MySQL) database.
-            String jawsdbUrl = System.getenv("JAWSDB_URL");
-            if (isNotBlank(jawsdbUrl)) {
-                URI url;
-                try {
-                    url = new URI(jawsdbUrl);
-                } catch (URISyntaxException e) {
-                    throw new IllegalStateException(String.format("Invalid JAWSDB_URL: '%s'", jawsdbUrl));
-                }
-                dataSourceUrl = String.format("jdbc:mysql://%s%s", url.getAuthority(), url.getPath());
-                String userInfo = url.getUserInfo();
-                String[] userInfoArray = userInfo.split(":");
-                dataSourceUsername = userInfoArray[0];
-                dataSourcePassword = userInfoArray[1];
-            }
 
             String jdbcDatabaseUrl = System.getenv("JDBC_DATABASE_URL");
             if (isNotBlank(jdbcDatabaseUrl)) {

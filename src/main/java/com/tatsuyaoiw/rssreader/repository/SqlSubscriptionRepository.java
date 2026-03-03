@@ -33,7 +33,7 @@ public class SqlSubscriptionRepository implements SubscriptionRepository {
     private void createTableIfNotExists() {
         try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS subscriptions (" +
-                    "id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+                    "id INT AUTO_INCREMENT PRIMARY KEY, " +
                     "url VARCHAR(512), " +
                     "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                     ")");

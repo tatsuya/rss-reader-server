@@ -1,12 +1,11 @@
 # rss-reader-server
 
-RSS reader service API, built with Java 8, Jetty, JAX-RS (Jersey), Google Guice and MySQL.
+RSS reader service API, built with Java, Jetty, JAX-RS (Jersey), Google Guice and H2.
 
 ## Prerequisite
 
-- Java 8
+- Java 11+
 - Maven 3
-- MySQL
 
 ## API
 
@@ -96,33 +95,16 @@ Unsubscribe feed.
 
 ## Local development
 
-### Running MySQL
-
-In this repository, we have a [Docker Compose](https://docs.docker.com/compose/) file (`docker-compose.yml`) to create and start MySQL service locally.
-
-```
-docker-compose up -d
-```
-
-### Build an artifact
-
 ```
 mvn package
-java -cp "target/classes:target/dependency/*" "com.tatsuyaoiw.rssreader.Main"
+java -cp "target/classes:target/dependency/*" com.tatsuyaoiw.rssreader.Main
 ```
 
-This is how we start Jetty on Heroku. You can check the actual command in the `Procfile`.
+The app uses an embedded H2 database — no external database setup required. Data is persisted to `rss-reader.mv.db` in the working directory.
 
-## Deploying on Heroku
+The server starts on port 8080 by default. Set the `PORT` environment variable to override it.
 
-Note: With Heroku, this application requires the [JawsDB MySQL](https://elements.heroku.com/addons/jawsdb) add-on installed as the MySQL data source.
-
-```
-heroku login
-heroku create
-git push heroku master
-heroku open
-```
+To use a different database, set `JDBC_DATABASE_URL` to any JDBC-compatible connection string.
 
 ## TODO
 

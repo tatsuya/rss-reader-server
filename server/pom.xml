@@ -142,7 +142,7 @@
                 <version>3.13.0</version>
                 <inherited>true</inherited>
                 <configuration>
-                    <release>8</release>
+                    <release>17</release>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>

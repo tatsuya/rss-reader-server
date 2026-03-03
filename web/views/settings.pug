@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h2 Subscribe to New feeds
+  form(action='/settings/subscriptions' method='post')
+    label URL:
+    |
+    |
+    input(type='text' id='url' name='url' style='width: 300px')
+    |
+    |
+    button(type='submit') Subscribe
+
+  h2 Current subscriptions
+  ul
+    each subscription in subscriptions
+      form(action='/settings/subscriptions/' + subscription.id + '/delete' method='post')
+        li
+          h3
+            label
+              a(href=subscription.url target='_blank') #{subscription.feed.title}
+            |
+            |
+            button(type='submit') Unsubscribe

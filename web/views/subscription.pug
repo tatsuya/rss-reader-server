@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  - var feed = subscription.feed
+  h2
+    a(href='/subscriptions/' + subscription.id) #{feed.title}
+  p #{feed.description}
+  ul
+    each entry in feed.entries
+      li
+        h3
+          a(href=entry.link target='_blank') #{entry.title}
+        p #{entry.description}
